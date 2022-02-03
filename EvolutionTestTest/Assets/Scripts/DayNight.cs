@@ -11,6 +11,9 @@ public class DayNight : MonoBehaviour
     void FixedUpdate()
     {
         time --;
+        GlobalData.avgspeed = GlobalData.totspeed / GlobalData.numagents;
+        Debug.Log(GlobalData.avgspeed);
+
         if(time <= 0){
             GlobalData.currentDay++;
             time = 5000;

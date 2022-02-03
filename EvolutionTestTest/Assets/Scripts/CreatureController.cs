@@ -16,6 +16,8 @@ public class CreatureController : MonoBehaviour
         GameObject Sphere = gameObject.transform.GetChild(0).gameObject;
         Sphere.transform.localScale = new Vector3(Stats.sense, Stats.sense, Stats.sense);
         agent.speed = Stats.speed;
+        GlobalData.totspeed += Stats.speed;
+        GlobalData.numagents += 1;
     }
 
     // Update is called once per frame
@@ -64,12 +66,13 @@ public class CreatureController : MonoBehaviour
     void NewDay(){
         if(Stats.currentDay < GlobalData.currentDay){
             if(gameObject.transform.position.x != 45 && gameObject.transform.position.z != 45 && gameObject.transform.position.z != -45 && gameObject.transform.position.x != -45){
+                GlobalData.totspeed -= Stats.speed;
+                GlobalData.numagents -= 1;
                 Destroy(this.gameObject);
                 Debug.Log("Destroy");
                 return;
             } else if(Stats.foodEaten >= 2){
                 Reproduce();
-                Debug.Log("Destroy");
             }
             Stats.currentDay = GlobalData.currentDay;
             Stats.foodEaten = 0;
