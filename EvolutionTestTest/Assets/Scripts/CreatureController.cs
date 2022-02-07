@@ -12,12 +12,15 @@ public class CreatureController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
+        gameObject.transform.localScale = gameObject.transform.localScale * Stats.size;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         GameObject Sphere = gameObject.transform.GetChild(0).gameObject;
         Sphere.transform.localScale = new Vector3(Stats.sense, Stats.sense, Stats.sense);
         agent.speed = Stats.speed;
-        GlobalData.totspeed += Stats.speed;
         GlobalData.numagents += 1;
+        GlobalData.totspeed += Stats.speed;
+        GlobalData.totsense += Stats.sense;
+
     }
 
     // Update is called once per frame
@@ -67,6 +70,7 @@ public class CreatureController : MonoBehaviour
         if(Stats.currentDay < GlobalData.currentDay){
             if(gameObject.transform.position.x != 45 && gameObject.transform.position.z != 45 && gameObject.transform.position.z != -45 && gameObject.transform.position.x != -45){
                 GlobalData.totspeed -= Stats.speed;
+                GlobalData.totsense -= Stats.sense;
                 GlobalData.numagents -= 1;
                 Destroy(this.gameObject);
                 Debug.Log("Destroy");
@@ -87,5 +91,6 @@ public class CreatureController : MonoBehaviour
         CreatureController script = instantiated.GetComponent<CreatureController>();
         script.Stats.sense = Stats.sense + Random.Range(-2, 2);
         script.Stats.speed = Stats.speed + Random.Range(-5, 5);
+        script.Stats.size = Stats.size + Random.Range(0, 5f);
     }
 }
