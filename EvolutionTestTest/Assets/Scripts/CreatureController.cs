@@ -58,9 +58,11 @@ public class CreatureController : MonoBehaviour
                         agent.destination = new Vector3(-45, 1, gameObject.transform.position.z);
                     }
                     return;
-                }else if(Stats.foodEaten >= 1 && Day.time <= 300){
+                }else if(Stats.foodEaten >= 1 && Stats.stamina <= 100){
                     agent.destination = new Vector3(gameObject.transform.position.x, 1, 45);
                     return; 
+                }else if(Stats.stamina<=0){
+                    Destroy(gameObject);
                 }else if(found){
                     agent.destination = loc.position;
                 }
@@ -91,6 +93,6 @@ public class CreatureController : MonoBehaviour
         CreatureController script = instantiated.GetComponent<CreatureController>();
         script.Stats.sense = Stats.sense + Random.Range(-2, 2);
         script.Stats.speed = Stats.speed + Random.Range(-5, 5);
-        script.Stats.size = Stats.size + Random.Range(0, 5f);
+        script.Stats.size = Stats.size + Random.Range(-.5f, .5f);
     }
 }

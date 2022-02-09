@@ -7,6 +7,8 @@ public class DayNight : MonoBehaviour
 
     [SerializeField]
     public int time = 5000;
+    [SerializeField]
+    Transform food = null;
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -16,6 +18,7 @@ public class DayNight : MonoBehaviour
 
         if(time <= 0){
             GlobalData.currentDay++;
+            FoodSpawner.SpawnFood(10, food);
             time = 5000;
         }
     }
